@@ -62,10 +62,6 @@ const Dashboard = () => {
   };
 
   // Calendar helpers
-  const openCalendar = () => {
-    setCalendarMonth(currentWeek);
-    setIsCalendarOpen(true);
-  };
   const changeMonth = (delta) => {
     const next = new Date(calendarMonth);
     next.setMonth(calendarMonth.getMonth() + delta);

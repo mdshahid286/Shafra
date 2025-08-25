@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { habitsService, habitLogsService } from '../firebase/habitsService';
 import { useAuth } from './AuthContext';
-import { onSnapshot, collection, query, where, orderBy } from 'firebase/firestore';
+import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 const HabitContext = createContext();
