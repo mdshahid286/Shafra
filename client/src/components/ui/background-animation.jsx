@@ -51,7 +51,7 @@ function FloatingPaths({ position }) {
 
 export function BackgroundAnimation() {
     return (
-        <div className="absolute inset-0 overflow-hidden rounded-2xl">
+        <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
         </div>

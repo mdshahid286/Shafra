@@ -15,6 +15,9 @@ const Dashboard = () => {
   const lastFetchedWeek = useRef('');
   const [showUserProfile, setShowUserProfile] = useState(false);
   const userProfileRef = useRef(null);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [calendarMonth, setCalendarMonth] = useState(new Date());
+  const calendarRef = useRef(null);
 
   // Close user profile when clicking outside
   useEffect(() => {
@@ -30,6 +33,25 @@ const Dashboard = () => {
     };
   }, []);
 
+  // Close calendar on outside click / Escape
+  useEffect(() => {
+    if (!isCalendarOpen) return;
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setIsCalendarOpen(false);
+      }
+    };
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setIsCalendarOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [isCalendarOpen]);
+
   const handleLogout = async () => {
     try {
       await signOut();
@@ -39,6 +61,29 @@ const Dashboard = () => {
     }
   };
 
+  // Calendar helpers
+  const openCalendar = () => {
+    setCalendarMonth(currentWeek);
+    setIsCalendarOpen(true);
+  };
+  const changeMonth = (delta) => {
+    const next = new Date(calendarMonth);
+    next.setMonth(calendarMonth.getMonth() + delta);
+    setCalendarMonth(next);
+  };
+  const getMonthMatrix = (date) => {
+    const start = startOfWeek(new Date(date.getFullYear(), date.getMonth(), 1), { weekStartsOn: 1 });
+    const days = [];
+    for (let i = 0; i < 42; i++) {
+      days.push(addDays(start, i));
+    }
+    return days;
+  };
+  const handlePickDate = (day) => {
+    setCurrentWeek(day);
+    setIsCalendarOpen(false);
+  };
+
   // Initialize week data
   useEffect(() => {
     if (currentWeek) {
@@ -46,7 +91,8 @@ const Dashboard = () => {
       const weekDates = [];
       
       for (let i = 0; i < 7; i++) {
-        weekDates.push(addDays(weekStart, i));
+        const date = addDays(weekStart, i);
+        weekDates.push(date);
       }
       
       setWeekData(weekDates);
@@ -72,9 +118,9 @@ const Dashboard = () => {
     setCurrentWeek(prev => {
       const newDate = new Date(prev);
       if (direction === 'next') {
-        newDate.setDate(prev.getDate() + 7);
+        newDate.setDate(newDate.getDate() + 7);
       } else {
-        newDate.setDate(prev.getDate() - 7);
+        newDate.setDate(newDate.getDate() - 7);
       }
       return newDate;
     });
@@ -258,7 +304,7 @@ const Dashboard = () => {
             <ChevronLeft size={20} />
           </button>
           
-          <div className="week-display">
+          <div className="week-display" onClick={() => { setCalendarMonth(currentWeek); setIsCalendarOpen(true); }} style={{ cursor: 'pointer' }} title="Pick week">
             <Calendar size={20} />
             <span>
               {format(weekData[0] || new Date(), 'MMM d')} - {format(weekData[weekData.length - 1] || new Date(), 'MMM d, yyyy')}
@@ -471,6 +517,42 @@ const Dashboard = () => {
 
       {/* Bottom Spacer to ensure content can scroll above navbar */}
       <div className="bottom-spacer"></div>
+
+      {isCalendarOpen && (
+        <div className="calendar-modal-overlay">
+          <div className="calendar-modal" ref={calendarRef}>
+            <div className="calendar-header">
+              <button className="calendar-nav" onClick={() => changeMonth(-1)} aria-label="Previous Month">
+                <ChevronLeft size={18} />
+              </button>
+              <div className="calendar-title">{format(calendarMonth, 'MMMM yyyy')}</div>
+              <button className="calendar-nav" onClick={() => changeMonth(1)} aria-label="Next Month">
+                <ChevronRight size={18} />
+              </button>
+            </div>
+            <div className="calendar-grid">
+              {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d) => (
+                <div key={d} className="calendar-dow">{d}</div>
+              ))}
+              {getMonthMatrix(calendarMonth).map((day, idx) => {
+                const isCurrentMonth = day.getMonth() === calendarMonth.getMonth();
+                const isToday = format(day, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd');
+                const isSelectedWeek = format(startOfWeek(day, { weekStartsOn: 1 }), 'yyyy-MM-dd') === format(startOfWeek(currentWeek, { weekStartsOn: 1 }), 'yyyy-MM-dd');
+                return (
+                  <button
+                    key={idx}
+                    className={`calendar-day ${isCurrentMonth ? '' : 'faded'} ${isToday ? 'today' : ''} ${isSelectedWeek ? 'selected-week' : ''}`}
+                    onClick={() => handlePickDate(day)}
+                    title={`Go to week of ${format(startOfWeek(day, { weekStartsOn: 1 }), 'MMM d, yyyy')}`}
+                  >
+                    {format(day, 'd')}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
