@@ -1,0 +1,716 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker:wght@400&display=swap');
+
+/* Custom Shafra title styling */
+.shafra-title {
+  font-family: 'Permanent Marker', cursive;
+  color: #ea9ef0 !important;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(234, 158, 240, 0.5);
+}
+
+.home {
+  min-height: 100vh;
+  background: var(--background);
+  padding: 2rem;
+  color: var(--white);
+  position: relative;
+}
+
+.welcome-section {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.welcome-section > *:not(.absolute) {
+  position: relative;
+  z-index: 10;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.home-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.add-habit-btn {
+  background: linear-gradient(135deg, var(--sky-blue) 0%, #5F9EA0 100%);
+  color: var(--background);
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
+  min-height: 48px; /* Touch-friendly minimum height */
+  touch-action: manipulation; /* Optimize for touch */
+}
+
+.add-habit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
+}
+
+/* Progress Summary */
+.progress-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.progress-card {
+  background: var(--dark-gray);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--lavender);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.progress-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.progress-icon {
+  margin-bottom: 1rem;
+  color: #FCD34D;
+}
+
+.progress-info h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.progress-info p {
+  color: var(--light-gray);
+  font-size: 0.875rem;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold) 0%, #FFC800 100%);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--gold-glow);
+}
+
+.progress-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  text-align: center;
+  display: block;
+}
+
+/* Habits Section */
+.habits-section h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.habit-card {
+  background: var(--dark-gray);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--lavender);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.habit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.habit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.habit-category {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-icon {
+  font-size: 1.25rem;
+}
+
+.category-badge {
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.habit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 44px; /* Touch-friendly minimum width */
+  min-height: 44px; /* Touch-friendly minimum height */
+  touch-action: manipulation; /* Optimize for touch */
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.edit-btn:hover {
+  color: #FCD34D;
+}
+
+.delete-btn:hover {
+  color: #F87171;
+}
+
+.habit-content {
+  margin-bottom: 1rem;
+}
+
+.habit-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.habit-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.habit-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+}
+
+.habit-toggle {
+  text-align: center;
+}
+
+.toggle-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  min-height: 48px; /* Touch-friendly minimum height */
+  touch-action: manipulation; /* Optimize for touch */
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.toggle-btn.completed {
+  background: linear-gradient(135deg, var(--gold) 0%, #FFC800 100%);
+  border-color: var(--gold);
+  color: var(--black);
+}
+
+.toggle-btn.completed:hover {
+  background: linear-gradient(135deg, #FFC800 0%, #FFB800 100%);
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.toggle-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.toggle-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.loading-spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.empty-state p {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Delete Confirmation Modal */
+.delete-confirm-modal {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.delete-confirm-modal h3 {
+  color: #DC2626;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.delete-confirm-modal p {
+  color: #6B7280;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Page Header Styles */
+.page-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.moon-icon {
+  color: #FCD34D;
+  filter: drop-shadow(0 0 10px rgba(252, 211, 77, 0.5));
+}
+
+.star-icon {
+  color: #F59E0B;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+}
+
+.app-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* User Profile Styles */
+.user-profile-container {
+  position: relative;
+}
+
+.user-profile-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.user-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.user-profile-card {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  min-width: 250px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.user-details h4 {
+  margin: 0 0 0.25rem 0;
+  color: #1f2937;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.user-details p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.logout-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+/* Welcome Section Styles */
+.welcome-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 1rem 0;
+}
+
+/* Color Theme Variables */
+:root {
+  --background: #121212;
+  --dark-gray: #1E1E1E;
+  --white: #FFFFFF;
+  --light-gray: #E5E5E5;
+  --lavender: #E6E6FA;
+  --sky-blue: #87CEEB;
+  --gold: #FFD700;
+  --gold-glow: rgba(255, 215, 0, 0.3);
+}
+
+.logo-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.app-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold) 0%, #FFC800 100%);
+  padding: 0.5rem;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+/* Tagline styling */
+.welcome-section p {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--lavender);
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.025em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .home-header h1 {
+    font-size: 2rem;
+  }
+  
+  .header-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .progress-summary {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .progress-card {
+    padding: 1rem 0.75rem;
+  }
+  
+  .progress-info h3 {
+    font-size: 1.5rem;
+  }
+  
+  .progress-info p {
+    font-size: 0.75rem;
+  }
+  
+  .habits-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .habit-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem;
+  }
+
+  .page-header {
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+  }
+  
+  .logo-container {
+    margin-bottom: 1rem;
+  }
+  
+  .welcome-section p {
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .user-profile-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    right: auto;
+    min-width: 280px;
+    max-width: 90vw;
+    z-index: 1001;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-header h1 {
+    font-size: 2rem;
+  }
+  
+  .header-actions {
+    gap: 0.75rem;
+  }
+  
+  .progress-summary {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .progress-card {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .progress-info h3 {
+    font-size: 1.25rem;
+  }
+  
+  .progress-info p {
+    font-size: 0.625rem;
+  }
+  
+  .habit-card {
+    padding: 1rem;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem;
+  }
+
+  .page-header {
+    justify-content: flex-end;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .logo-container {
+    margin-bottom: 0.75rem;
+  }
+  
+  .welcome-section p {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .user-profile-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    right: auto;
+    min-width: 260px;
+    max-width: 90vw;
+    padding: 1rem;
+    z-index: 1001;
+  }
+  
+  .user-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+}
+
+/* Bottom Spacer */
+.bottom-spacer {
+  height: 250px;
+  width: 100%;
+}
