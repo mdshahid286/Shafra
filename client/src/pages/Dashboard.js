@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHabits } from '../contexts/HabitContext';
 import { useAuth } from '../contexts/AuthContext';
-import { format, startOfWeek, endOfWeek, eachDayOfInterval, addDays } from 'date-fns';
-import { ChevronLeft, ChevronRight, Calendar, User, LogOut, Flame } from 'lucide-react';
+import { format, startOfWeek, addDays } from 'date-fns';
+import { ChevronLeft, ChevronRight, Calendar, User, LogOut } from 'lucide-react';
 import { AnimatedText } from '../components/ui/animated-underline-text-one';
 import { BackgroundAnimation } from '../components/ui/background-animation';
 import './Dashboard.css';
@@ -335,7 +335,6 @@ const Dashboard = () => {
                  const handleHabitClick = async () => {
                    if (isFuture) return; // Don't allow clicking on future dates
                    
-                   const dateString = format(date, 'yyyy-MM-dd');
                    const newStatus = !isCompleted;
                    
                    try {

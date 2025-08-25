@@ -129,8 +129,7 @@ export const HabitProvider = ({ children }) => {
     try {
       await habitsService.deleteHabit(id);
       
-      // Get the habit that was deleted to check if it was completed today
-      const deletedHabit = habits.find(h => h.id === id);
+      // Check if the habit was completed today before deleting
       const today = new Date().toISOString().split('T')[0];
       const wasCompletedToday = habitLogs.some(log => 
         log.habitId === id && log.date === today && log.completed

@@ -7,7 +7,6 @@ import {
   deleteDoc, 
   query, 
   where, 
-  orderBy,
   serverTimestamp 
 } from 'firebase/firestore';
 import { db } from './config';
