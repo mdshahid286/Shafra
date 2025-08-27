@@ -19,6 +19,8 @@ const Dashboard = () => {
   const [calendarMonth, setCalendarMonth] = useState(new Date());
   const calendarRef = useRef(null);
 
+
+
   // Close user profile when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -131,12 +133,7 @@ const Dashboard = () => {
       return null;
     }
     
-    // If it's today, use the helper function for consistency
-    if (dateString === today) {
-      return getTodayCompletionStatus(habitId);
-    }
-    
-    // For past dates, check the logs
+    // Always check the logs directly for consistency
     const log = habitLogs.find(log => 
       log.habitId === habitId && log.date === dateString
     );
@@ -377,10 +374,17 @@ const Dashboard = () => {
                  const handleHabitClick = async () => {
                    if (isFuture) return; // Don't allow clicking on future dates
                    
-                   const newStatus = !isCompleted;
+                   const dateString = format(date, 'yyyy-MM-dd');
+                   
+                   // Always check logs directly for consistency
+                   const log = habitLogs.find(log => 
+                     log.habitId === habit.id && log.date === dateString
+                   );
+                   const currentStatus = log ? log.completed : false;
+                   const newStatus = !currentStatus;
                    
                    try {
-                     await toggleHabitCompletion(habit.id, newStatus);
+                     await toggleHabitCompletion(habit.id, dateString, newStatus);
                    } catch (error) {
                      console.error('Error toggling habit completion:', error);
                    }
@@ -445,8 +449,11 @@ const Dashboard = () => {
                      dotClass += ' future';
                      dotColor = 'transparent';
                    } else if (dateString === today) {
-                     // Today - use helper function
-                     const isCompletedToday = getTodayCompletionStatus(habit.id);
+                     // Today - check logs directly
+                     const log = habitLogs.find(log => 
+                       log.habitId === habit.id && log.date === dateString
+                     );
+                     const isCompletedToday = log ? log.completed : false;
                      if (isCompletedToday) {
                        dotClass += ' completed';
                        dotColor = getCategoryColor(habit.category);
@@ -474,22 +481,15 @@ const Dashboard = () => {
                    const handleDotClick = async () => {
                      if (dateString > today) return; // Don't allow clicking on future dates
                      
-                     let currentStatus;
-                     if (dateString === today) {
-                       // Use helper function for today
-                       currentStatus = getTodayCompletionStatus(habit.id);
-                     } else {
-                       // Check logs for past dates
-                       const log = habitLogs.find(log => 
-                         log.habitId === habit.id && log.date === dateString
-                       );
-                       currentStatus = log ? log.completed : false;
-                     }
-                     
+                     // Always check logs directly for consistency
+                     const log = habitLogs.find(log => 
+                       log.habitId === habit.id && log.date === dateString
+                     );
+                     const currentStatus = log ? log.completed : false;
                      const newStatus = !currentStatus;
                      
                      try {
-                       await toggleHabitCompletion(habit.id, newStatus);
+                       await toggleHabitCompletion(habit.id, dateString, newStatus);
                      } catch (error) {
                          console.error('Error toggling habit completion:', error);
                      }

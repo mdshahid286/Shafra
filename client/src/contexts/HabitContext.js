@@ -267,23 +267,21 @@ export const HabitProvider = ({ children }) => {
   };
 
   // Mark habit as completed with offline support
-  const toggleHabitCompletion = async (id, completed) => {
+  const toggleHabitCompletion = async (id, date, completed) => {
     if (!user) throw new Error('User not authenticated');
     
     try {
       setUpdatingHabit(true);
-      const today = new Date().toISOString().split('T')[0];
       
-      // Toggle the habit completion for today
-      await habitLogsService.toggleHabitCompletion(id, today, completed, user.uid);
+      // Toggle the habit completion for the specified date
+      await habitLogsService.toggleHabitCompletion(id, date, completed, user.uid);
       // Note: Real-time listener will update the habitLogs state automatically
     } catch (err) {
       // If offline, add to pending operations
       if (!isOnline) {
-        const today = new Date().toISOString().split('T')[0];
         const pendingOp = {
           type: 'TOGGLE_COMPLETION',
-          data: { habitId: id, date: today, completed, userId: user.uid },
+          data: { habitId: id, date: date, completed, userId: user.uid },
           timestamp: Date.now()
         };
         setPendingOperations(prev => [...prev, pendingOp]);
@@ -291,7 +289,7 @@ export const HabitProvider = ({ children }) => {
         // Optimistically update local state
         setHabitLogs(prevLogs => {
           const existingLogIndex = prevLogs.findIndex(log => 
-            log.habitId === id && log.date === today
+            log.habitId === id && log.date === date
           );
           
           if (existingLogIndex >= 0) {
@@ -302,9 +300,9 @@ export const HabitProvider = ({ children }) => {
           } else {
             // Add new log
             const newLog = {
-              id: `${id}_${today}`,
+              id: `${id}_${date}`,
               habitId: id,
-              date: today,
+              date: date,
               completed,
               userId: user.uid,
               timestamp: new Date().toISOString()

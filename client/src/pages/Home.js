@@ -55,7 +55,8 @@ const Home = () => {
   const handleToggleHabit = async (habitId) => {
     try {
       const isCompleted = getTodayCompletionStatus(habitId);
-      await toggleHabitCompletion(habitId, !isCompleted);
+      const today = new Date().toISOString().split('T')[0];
+      await toggleHabitCompletion(habitId, today, !isCompleted);
     } catch (err) {
       console.error('Error toggling habit:', err);
     }
