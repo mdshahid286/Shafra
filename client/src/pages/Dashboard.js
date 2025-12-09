@@ -182,7 +182,8 @@ const Dashboard = () => {
       totalDays: weekData.length || 0,
       completedCount: 0,
       missedCount: 0,
-      futureCount: 0
+      futureCount: 0,
+      totalPossibleCompletions: 0
     };
 
     habits.forEach(habit => {
@@ -195,6 +196,10 @@ const Dashboard = () => {
         } else {
           stats.futureCount++;
         }
+        // Only count dates that are not in the future for possible completions
+        if (status !== null) {
+          stats.totalPossibleCompletions++;
+        }
       });
     });
 
@@ -202,11 +207,28 @@ const Dashboard = () => {
   };
 
   const calculateOverallStats = () => {
+    let totalPossibleCompletions = 0;
+    const today = new Date();
+
+    habits.forEach(habit => {
+      const createdAt = new Date(habit.createdAt);
+      let dayCount = 0;
+      let currentDate = new Date(createdAt);
+      while (currentDate <= today) {
+        dayCount++;
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      totalPossibleCompletions += dayCount;
+    });
+
+    const totalCompleted = habitLogs.filter(log => log.completed).length;
+    const totalMissed = totalPossibleCompletions - totalCompleted;
+
     const stats = {
       totalHabits: habits.length || 0,
-      totalCompleted: habitLogs.filter(log => log.completed).length || 0,
-      totalMissed: habitLogs.filter(log => !log.completed).length || 0,
-      totalDays: habitLogs.length || 0
+      totalCompleted,
+      totalMissed,
+      totalPossibleCompletions
     };
 
     return stats;
@@ -321,15 +343,13 @@ const Dashboard = () => {
             <p>Total Habits</p>
           </div>
           <div className="stat-card">
-            <h3>{weekStats.completedCount}</h3>
-            <p>This Week</p>
+            <h3>{weekStats.missedCount}</h3>
+            <p>Missed This Week</p>
           </div>
+
+
           <div className="stat-card">
-            <h3>{overallStats.totalCompleted}</h3>
-            <p>Total Completed</p>
-          </div>
-          <div className="stat-card">
-            <h3>{overallStats.totalDays > 0 ? Math.round((overallStats.totalCompleted / overallStats.totalDays) * 100) : 0}%</h3>
+            <h3>{weekStats.totalPossibleCompletions > 0 ? Math.round((weekStats.completedCount / weekStats.totalPossibleCompletions) * 100) : 0}%</h3>
             <p>Success Rate</p>
           </div>
         </div>
