@@ -8,7 +8,7 @@ import { BackgroundAnimation } from '../components/ui/background-animation';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { habits, habitLogs, fetchHabitLogs, toggleHabitCompletion, updatingHabit, getTodayCompletionStatus, fetchingLogs } = useHabits();
+  const { habits, habitLogs, fetchHabitLogs, toggleHabitCompletion, updatingHabit, fetchingLogs } = useHabits();
   const { user, signOut } = useAuth();
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [weekData, setWeekData] = useState([]);
@@ -206,36 +206,9 @@ const Dashboard = () => {
     return stats;
   };
 
-  const calculateOverallStats = () => {
-    let totalPossibleCompletions = 0;
-    const today = new Date();
 
-    habits.forEach(habit => {
-      const createdAt = new Date(habit.createdAt);
-      let dayCount = 0;
-      let currentDate = new Date(createdAt);
-      while (currentDate <= today) {
-        dayCount++;
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-      totalPossibleCompletions += dayCount;
-    });
-
-    const totalCompleted = habitLogs.filter(log => log.completed).length;
-    const totalMissed = totalPossibleCompletions - totalCompleted;
-
-    const stats = {
-      totalHabits: habits.length || 0,
-      totalCompleted,
-      totalMissed,
-      totalPossibleCompletions
-    };
-
-    return stats;
-  };
 
   const weekStats = calculateWeekStats();
-  const overallStats = calculateOverallStats();
 
   return (
     <div className="dashboard relative">

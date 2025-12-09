@@ -500,6 +500,150 @@
   pointer-events: none;
 }
 
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+
+  .dashboard-header p {
+    font-size: 1rem;
+  }
+
+  .week-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .week-display {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .nav-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.5rem;
+  }
+
+  .week-stats {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .stat-card p {
+    font-size: 0.75rem;
+  }
+
+  .habits-grid-container {
+    border-radius: 0.5rem;
+  }
+
+  .grid-header,
+  .habit-row {
+    grid-template-columns: minmax(90px, 1fr) repeat(7, minmax(35px, 1fr));
+  }
+
+  .habit-column-header,
+  .habit-info {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .date-column-header {
+    padding: 0.1rem 0.05rem;
+    min-height: 45px;
+  }
+
+  .date-day {
+    font-size: 0.6rem;
+  }
+
+  .date-number {
+    font-size: 0.8rem;
+  }
+
+  .status-cell {
+    min-height: 45px;
+  }
+
+  .habit-name {
+    font-size: 0.9rem;
+  }
+
+  .category-badge {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+  }
+
+  .calendar-modal {
+    width: 95vw;
+    padding: 0.75rem;
+  }
+
+  .calendar-grid {
+    gap: 0.25rem;
+  }
+
+  .calendar-day {
+    padding: 0.3rem 0;
+    font-size: 0.8rem;
+  }
+
+  .calendar-dow {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .week-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-header,
+  .habit-row {
+    grid-template-columns: minmax(80px, 1fr) repeat(7, minmax(30px, 1fr));
+  }
+
+  .habit-column-header,
+  .habit-info {
+    font-size: 0.8rem;
+  }
+
+  .date-column-header {
+    min-height: 40px;
+  }
+
+  .date-day {
+    font-size: 0.55rem;
+  }
+
+  .date-number {
+    font-size: 0.75rem;
+  }
+
+  .status-cell {
+    min-height: 40px;
+  }
+}
+
+
 .status-loading-spinner {
   width: 16px;
   height: 16px;

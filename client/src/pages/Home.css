@@ -714,3 +714,201 @@
   height: 250px;
   width: 100%;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .home {
+    padding: 0.5rem;
+  }
+
+  .shafra-title {
+    font-size: 1.75rem;
+  }
+
+  .home-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .home-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .add-habit-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .welcome-section {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-summary {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem; /* Add some padding for scrollbar */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+  }
+
+  .progress-summary::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+  }
+
+  .progress-info {
+    flex: 0 0 auto; /* Prevent items from shrinking */
+    width: 150px; /* Adjust width as needed */
+    padding: 0.75rem;
+  }
+
+  .progress-info h3 {
+    font-size: 1.5rem;
+  }
+
+  .habits-section {
+    margin-top: 1rem;
+  }
+
+  .habits-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .habits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .habit-card {
+    padding: 0.75rem;
+  }
+
+  .habit-name {
+    font-size: 1rem;
+  }
+
+  .habit-stats {
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .habit-stats .stat {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .toggle-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .user-profile-card {
+    min-width: unset;
+    width: 95%;
+    left: 2.5%;
+    right: 2.5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    padding: 0.25rem;
+  }
+
+  .shafra-title {
+    font-size: 1.5rem;
+  }
+
+  .home-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .add-habit-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .welcome-section {
+    padding: 0.75rem;
+  }
+
+  .progress-info {
+    width: 130px; /* Further adjust width for smaller screens */
+    padding: 0.6rem;
+  }
+
+  .progress-info h3 {
+    font-size: 1.25rem;
+  }
+
+  .habits-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .habit-name {
+    font-size: 0.9rem;
+  }
+
+  .habit-stats {
+    font-size: 0.75rem;
+  }
+
+  .toggle-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .shafra-title {
+    font-size: 1.75rem;
+  }
+
+  .progress-info h3 {
+    font-size: 1.5rem;
+  }
+
+  .habits-section h2 {
+    font-size: 1.25rem;
+  }
+
+  .add-habit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .user-profile-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-details h4 {
+    font-size: 1rem;
+  }
+
+  .user-details p {
+    font-size: 0.75rem;
+  }
+
+  .logout-btn {
+    font-size: 0.875rem;
+  }
+}

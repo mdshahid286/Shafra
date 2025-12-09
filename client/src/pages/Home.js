@@ -5,6 +5,7 @@ import { Plus, Edit, Trash2, CheckCircle, Circle, Target, Flame, Calendar, User,
 import HabitForm from '../components/HabitForm';
 import { AnimatedText } from '../components/ui/animated-underline-text-one';
 import { BackgroundAnimation } from '../components/ui/background-animation';
+import { startOfWeek, endOfWeek, isSameDay, isBefore, addDays, format } from 'date-fns';
 import './Home.css';
 
 const Home = () => {
@@ -28,6 +29,7 @@ const Home = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const userProfileRef = useRef(null);
+  const [weeklyHabitStats, setWeeklyHabitStats] = useState({});
 
   // Close user profile when clicking outside
   useEffect(() => {
@@ -42,6 +44,47 @@ const Home = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Calculate weekly stats for each habit
+  useEffect(() => {
+    const calculateWeeklyStats = () => {
+      const today = new Date();
+      const start = startOfWeek(today, { weekStartsOn: 0 }); // Sunday as start of week
+      const end = endOfWeek(today, { weekStartsOn: 0 });
+
+      const stats = {};
+      habits.forEach(habit => {
+        let completedThisWeek = 0;
+        let missedThisWeek = 0;
+
+        let currentDate = start;
+        while (isBefore(currentDate, addDays(end, 1))) { // Iterate through each day of the week
+          const dateString = format(currentDate, 'yyyy-MM-dd');
+          const log = habitLogs.find(l => l.habitId === habit.id && l.date === dateString);
+
+          if (isBefore(currentDate, today) || isSameDay(currentDate, today)) {
+            if (log) {
+              if (log.completed) {
+                completedThisWeek++;
+              } else {
+                missedThisWeek++;
+              }
+            } else {
+              // If no log exists for a past/current day, it's considered missed
+              missedThisWeek++;
+            }
+          }
+          currentDate = addDays(currentDate, 1);
+        }
+        stats[habit.id] = { completedThisWeek, missedThisWeek };
+      });
+      setWeeklyHabitStats(stats);
+    };
+
+    if (habits.length > 0 || habitLogs.length > 0) {
+      calculateWeeklyStats();
+    }
+  }, [habits, habitLogs]);
 
   const handleLogout = async () => {
     try {
@@ -321,12 +364,12 @@ const Home = () => {
                   
                   <div className="habit-stats">
                     <div className="stat">
-                      <Flame size={16} />
-                      <span>{habitLogs.filter(log => log.habitId === habit.id && log.completed).length || 0} completed</span>
+                      <CheckCircle size={16} />
+                      <span>{weeklyHabitStats[habit.id]?.completedThisWeek || 0} completed this week</span>
                     </div>
                     <div className="stat">
-                      <Target size={16} />
-                      <span>{habitLogs.filter(log => log.habitId === habit.id).length || 0} total days</span>
+                      <Circle size={16} />
+                      <span>{weeklyHabitStats[habit.id]?.missedThisWeek || 0} missed this week</span>
                     </div>
                   </div>
                   
